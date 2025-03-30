@@ -8,20 +8,21 @@ import "google/protobuf/empty.proto"; // Google에서 제공하는 공통 메시
 import "google/protobuf/timestamp.proto";
 
 service UserService {
-  rpc CreateUser (CreateUserRequest) returns (User) {}
   rpc GetUser (GetUserRequest) returns (User) {}
+  rpc ListAllUsers (google.protobuf.Empty) returns (ListUsersResponse) {}
   rpc ListUsers (ListUsersRequest) returns (ListUsersResponse) {}
+  rpc CreateUser (CreateUserRequest) returns (User) {}
   rpc UpdateUser (UpdateUserRequest) returns (User) {}
   rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty) {}
+}
+
+message GetUserRequest {
+  string name = 1;
 }
 
 message CreateUserRequest {
   string name = 1;
   string email = 2;
-}
-
-message GetUserRequest {
-  string name = 1;
 }
 
 message ListUsersRequest {

@@ -25,6 +25,13 @@ public class Users {
     @Column("created_at")
     private Instant createdAt;
 
+    public static Users fromRequest(String name, String email) {
+        return new Users(null,
+                         name,
+                         email,
+                         Instant.now());
+    }
+
     public User toProto() {
         return User.newBuilder()
                    .setId(getId())
