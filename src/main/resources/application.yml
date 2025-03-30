@@ -1,0 +1,31 @@
+server:
+  address: 127.0.0.1
+  port: 8443
+  ssl:
+    enabled: true # Uses self-signed certificate because no key-store configuration is specified.
+
+# Additional server ports specified with Armeria configuration.
+armeria:
+  ports:
+    - port: 8443    # Port 8443 will serve HTTPS, HTTP and PROXY protocol.
+      protocols:
+        - http
+        - proxy
+    - port: 8080    # Port 8080 will serve only HTTP.
+      protocols: http
+
+spring:
+  application:
+    name: webflux-sample
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/testdb?useSSL=false
+    username: root
+    password: admin
+  sql:
+    init:
+      mode: always # schema.sql, data.sql ?? ???? ?? ??
+
+logging:
+  level:
+#    root: DEBUG
+    com.study.webflux: DEBUG

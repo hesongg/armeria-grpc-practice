@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package com.study.webflux.grpc.service;
+option java_package = "com.study.webflux.grpc.service";
+option java_multiple_files = true; // 각 메시지 타입과 서비스 정의마다 별도의 .java 파일이 생성
+
+import "google/protobuf/empty.proto"; // Google에서 제공하는 공통 메시지 타입인 Empty 메시지를 사용하기 위해 import
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  rpc CreateUser (CreateUserRequest) returns (User) {}
+  rpc GetUser (GetUserRequest) returns (User) {}
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse) {}
+  rpc UpdateUser (UpdateUserRequest) returns (User) {}
+  rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty) {}
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+message GetUserRequest {
+  string name = 1;
+}
+
+message ListUsersRequest {
+  repeated string id = 1;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+}
+
+message UpdateUserRequest {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message DeleteUserRequest {
+  int64 id = 1;
+}
+
+message User {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+  google.protobuf.Timestamp createdAt = 4;
+}
